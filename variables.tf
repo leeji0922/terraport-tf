@@ -16,14 +16,11 @@ variable "availability_zones" {
   default     = ["ap-northeast-2a", "ap-northeast-2c"]
 }
 
-variable "public_subnets" {
-  description = "Public subnet CIDR blocks"
-  type        = list(string)
-  default     = ["10.10.1.0/24", "10.10.2.0/24"]
+variable "subnet_cidr" {
+  description = "Subnet CIDR blocks"
+  type        = map(list(string))
+  default     = {
+    public = ["10.10.0.0/24", "10.10.4.0/24"]
+    private = ["10.10.8.0/24", "10.10.12.0/24"]
+  }
 }
-
-variable "private_subnets" {
-  description = "Private subnet CIDR blocks"
-  type        = list(string)
-  default     = ["10.10.10.0/24", "10.10.11.0/24"]
-} 
