@@ -47,14 +47,15 @@ Internet
 - **NAT Gateway**: Private 서브넷의 외부 통신
 
 ### Lambda Function
-- Node.js 18.x 런타임
-- Private 서브넷에 배치
-- VPC 엔드포인트를 통한 외부 통신
+- python 런타임
 
 ### API Gateway
 - REST API
 - Lambda 프록시 통합
 - CORS 지원
+
+### RDS
+- 동작 이력 및 데이터 적재
 
 ## 파일 구조
 
