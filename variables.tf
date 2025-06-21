@@ -20,7 +20,7 @@ variable "subnet_cidr" {
   description = "Subnet CIDR blocks"
   type        = map(list(string))
   default     = {
-    public = ["10.10.0.0/24", "10.10.4.0/24"]
-    private = ["10.10.8.0/24", "10.10.12.0/24"]
+    public = ["10.10.1.0/24", "10.10.2.0/24"]
+    private = ["10.10.10.0/24", "10.10.11.0/24"]
   }
 }
