@@ -64,20 +64,20 @@
 
 ```
 terraport-tf/
-├── providers.tf              # Terraform provider 설정
-├── variables.tf              # 변수 정의
-├── resources/                # 리소스 정의
-│   ├── vpc.tf               # VPC, 서브넷, 라우팅 테이블
-│   ├── security.tf          # 보안 그룹, IAM 역할
-│   ├── lambda.tf            # Lambda 함수
-│   └── api-gateway.tf       # API Gateway
-├── outputs/                  # 출력 값
-│   └── outputs.tf           # 배포 후 확인할 정보
-├── lambda/                   # Lambda 소스 코드
-│   └── index.js             # Lambda 함수 소스
-├── README.md                # 프로젝트 문서
-├── build_lambda.ps1         # Lambda 패키징 스크립트
-└── .gitignore               # Git 무시 파일
+├── providers.tf                          # Terraform provider 설정
+├── variables.tf                          # 변수 정의
+├── resources/                            # 리소스 정의
+│   ├── vpc.tf                            # VPC, 서브넷, 라우팅 테이블
+│   ├── security.tf                       # 보안 그룹, IAM 역할
+│   ├── lambda.tf                         # Lambda 함수
+│   └── api-gateway.tf                    # API Gateway
+├── outputs/                              # 출력 값
+│   └── outputs.tf                        # 배포 후 확인할 정보
+├── lambda/                               # Lambda 소스 코드
+│   └── terraport_main_ec2.js             # Lambda 함수 소스
+├── README.md                             # 프로젝트 문서
+├── build_lambda.ps1                      # Lambda 패키징 스크립트
+└── .gitignore                            # Git 무시 파일
 ```
 
 ## 사전 요구사항
