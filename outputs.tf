@@ -46,4 +46,20 @@ output "nat_gateway_id" {
 output "internet_gateway_id" {
   description = "Internet Gateway ID"
   value       = aws_internet_gateway.main.id
+}
+
+# KMS Key outputs
+output "kms_key_id" {
+  description = "KMS Key ID"
+  value       = aws_kms_key.terraport_key.key_id
+}
+
+output "kms_key_arn" {
+  description = "KMS Key ARN"
+  value       = aws_kms_key.terraport_key.arn
+}
+
+output "kms_key_alias" {
+  description = "KMS Key Alias"
+  value       = aws_kms_alias.terraport_key_alias.name
 } 

@@ -11,7 +11,7 @@ if (Test-Path "../lambda_function.zip") {
 }
 
 # Lambda 함수 패키징
-Compress-Archive -Path "terraport_main.py" -DestinationPath "../lambda_function.zip" -Force
+Compress-Archive -Path "terraport_main_ec2.py" -DestinationPath "../lambda_function.zip" -Force
 
 Write-Host "Lambda function packaged successfully!" -ForegroundColor Green
 Write-Host "Package location: lambda_function.zip" -ForegroundColor Cyan
