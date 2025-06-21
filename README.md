@@ -46,7 +46,9 @@
 - **NAT Gateway**: Private 서브넷의 외부 통신
 
 ### Lambda Function
-- python 런타임
+- Python 3.12 런타임
+- Private 서브넷에 배치
+- RDS 데이터베이스와 통신
 
 ### API Gateway
 - REST API
@@ -54,7 +56,9 @@
 - CORS 지원
 
 ### RDS
-- 동작 이력 및 데이터 적재
+- PostgreSQL 15.4
+- Private 서브넷에 배치
+- Lambda 함수에서만 접근 가능
 
 ## 파일 구조
 
