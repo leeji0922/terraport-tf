@@ -3,8 +3,8 @@ resource "aws_lambda_function" "main" {
   filename         = "lambda_function.zip"
   function_name    = "${var.project_name}-function"
   role            = aws_iam_role.lambda_role.arn
-  handler         = "index.handler"
-  runtime         = "nodejs18.x"
+  handler         = "terraport_main.terraport_main"
+  runtime         = "python3.12"
   timeout         = 30
 
   vpc_config {
@@ -14,7 +14,7 @@ resource "aws_lambda_function" "main" {
 
   environment {
     variables = {
-      NODE_ENV = "production"
+      PYTHONPATH = "/var/task"
     }
   }
 } 
