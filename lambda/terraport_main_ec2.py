@@ -70,11 +70,11 @@ def terraport_main_ec2(event, context):
         save_to_s3(terraform_files, event['s3_bucket_name'], event['s3_bucket_key'])
     elif save_type == 'github':
         #TODO: github repo 저장 기능 추가
+        # push_to_github(terraform_files, event['github_repo_name'], event['github_repo_branch'], event['github_repo_token'], event['github_repo_key'])
         return {
             'statusCode': 400,
             'body': json.dumps('Github repo 저장 기능 추가 필요')
         }
-        # push_to_github(terraform_files, event['github_repo_name'], event['github_repo_branch'], event['github_repo_token'], event['github_repo_key'])
 
     return {
         'statusCode': 200,

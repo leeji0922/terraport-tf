@@ -1,5 +1,5 @@
 import boto3
-from github import Github
+# from github import Github
 
 def save_to_s3(terraform_files, s3_bucket_name, s3_bucket_key):
     s3 = boto3.client('s3')
