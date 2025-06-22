@@ -115,29 +115,3 @@ def get_private_subnets(event, context):
     filters = [{'Name': 'map-public-ip-on-launch', 'Values': ['false']}]
     event['filters'] = filters
     return get_subnet_list(event, context)
-
-def get_subnet_list_function(event, context) :
-
-    region = event['region']
-    
-    keys = decrypt_credentials(event, event['kms_key_id'])
-    access_key = keys['access_key']
-    secret_key = keys['secret_key']
-    vpc_id = event['vpc_id']
-
-    
-    
-
-    return f'''terraform {{
-        required_version = ">= 1.0"
-        aws = {{
-            source  = "hashicorp/aws"
-            version = "~> 5.0"
-        }}
-    }}
-    provider "aws" {{
-        region     = var.region
-        access_key = var.access_key
-        secret_key = var.secret_key
-    }}
-    '''
