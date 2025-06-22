@@ -18,14 +18,35 @@ output "private_subnet_ids" {
   value       = aws_subnet.private[*].id
 }
 
-output "lambda_function_name" {
-  description = "Lambda function name"
-  value       = aws_lambda_function.main.function_name
+# Lambda Functions Outputs
+output "lambda_ec2_function_name" {
+  description = "EC2 Lambda function name"
+  value       = aws_lambda_function.ec2_function.function_name
 }
 
-output "lambda_function_arn" {
-  description = "Lambda function ARN"
-  value       = aws_lambda_function.main.arn
+output "lambda_ec2_function_arn" {
+  description = "EC2 Lambda function ARN"
+  value       = aws_lambda_function.ec2_function.arn
+}
+
+output "lambda_save_files_function_name" {
+  description = "Save Files Lambda function name"
+  value       = aws_lambda_function.save_files_function.function_name
+}
+
+output "lambda_save_files_function_arn" {
+  description = "Save Files Lambda function ARN"
+  value       = aws_lambda_function.save_files_function.arn
+}
+
+output "lambda_subnet_list_function_name" {
+  description = "Subnet List Lambda function name"
+  value       = aws_lambda_function.subnet_list_function.function_name
+}
+
+output "lambda_subnet_list_function_arn" {
+  description = "Subnet List Lambda function ARN"
+  value       = aws_lambda_function.subnet_list_function.arn
 }
 
 output "api_gateway_url" {

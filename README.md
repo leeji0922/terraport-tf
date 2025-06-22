@@ -22,6 +22,7 @@
 │ 10.10.2.0/24    │    │  10.10.11.0/24     │
 │                 │    │  ┌──────────────┐  │
 │                 │    │  │   Lambda     │  │
+│                 │    │  │  Functions   │  │
 │                 │    │  └──────────────┘  │
 │                 │    │        │           │
 │                 │    │        ▼           │
@@ -45,7 +46,10 @@
 - **Internet Gateway**: 외부 인터넷 연결
 - **NAT Gateway**: Private 서브넷의 외부 통신
 
-### Lambda Function
+### Lambda Functions
+- **EC2 Function**: EC2 관련 처리
+- **Provider Function**: Provider 생성 처리
+- **Save Files Function**: 파일 저장 처리
 - Python 3.12 런타임
 - Private 서브넷에 배치
 - RDS 데이터베이스와 통신
@@ -66,17 +70,23 @@
 terraport-tf/
 ├── providers.tf                          # Terraform provider 설정
 ├── variables.tf                          # 변수 정의
-├── resources/                            # 리소스 정의
-│   ├── vpc.tf                            # VPC, 서브넷, 라우팅 테이블
-│   ├── security.tf                       # 보안 그룹, IAM 역할
-│   ├── lambda.tf                         # Lambda 함수
-│   └── api-gateway.tf                    # API Gateway
-├── outputs/                              # 출력 값
-│   └── outputs.tf                        # 배포 후 확인할 정보
+├── vpc.tf                                # VPC, 서브넷, 라우팅 테이블
+├── security.tf                           # 보안 그룹, IAM 역할
+├── lambda.tf                             # Lambda 함수들
+├── api-gateway.tf                        # API Gateway
+├── outputs.tf                            # 배포 후 확인할 정보
 ├── lambda/                               # Lambda 소스 코드
-│   └── terraport_main_ec2.js             # Lambda 함수 소스
+│   ├── ec2-function/                     # EC2 람다 함수
+│   │   └── terraport_main_ec2.py
+│   ├── provider-function/                # Provider 람다 함수
+│   │   └── generate_provider.py
+│   └── save-files-function/              # Save Files 람다 함수
+│       └── save_files.py
+├── build_lambda_ec2.ps1                  # EC2 람다 패키징 스크립트
+├── build_lambda_provider.ps1             # Provider 람다 패키징 스크립트
+├── build_lambda_save_files.ps1           # Save Files 람다 패키징 스크립트
+├── build_all_lambda.ps1                  # 모든 람다 패키징 스크립트
 ├── README.md                             # 프로젝트 문서
-├── build_lambda.ps1                      # Lambda 패키징 스크립트
 └── .gitignore                            # Git 무시 파일
 ```
 
@@ -94,8 +104,22 @@ aws configure
 ```
 
 ### 2. Lambda 함수 패키징
+
+#### 개별 람다 함수 빌드
 ```powershell
-.\build_lambda.ps1
+# EC2 람다 함수만 빌드
+.\build_lambda_ec2.ps1
+
+# Provider 람다 함수만 빌드
+.\build_lambda_provider.ps1
+
+# Save Files 람다 함수만 빌드
+.\build_lambda_save_files.ps1
+```
+
+#### 모든 람다 함수 한 번에 빌드
+```powershell
+.\build_all_lambda.ps1
 ```
 
 ### 3. Terraform 초기화
@@ -134,13 +158,16 @@ terraform destroy
 
 - VPC ID 및 CIDR
 - Public/Private 서브넷 ID
-- Lambda 함수 이름 및 ARN
+- Lambda 함수들 이름 및 ARN
+  - EC2 Lambda Function
+  - Provider Lambda Function
+  - Save Files Lambda Function
 - API Gateway URL
 - NAT Gateway ID
 
 ## 보안 고려사항
 
-- Lambda 함수는 Private 서브넷에 배치되어 외부에서 직접 접근 불가
+- Lambda 함수들은 Private 서브넷에 배치되어 외부에서 직접 접근 불가
 - NAT Gateway를 통해서만 외부 통신 가능
 - Security Group으로 네트워크 트래픽 제어
 - IAM 역할과 정책으로 최소 권한 원칙 적용
@@ -161,4 +188,9 @@ terraform destroy
 ### API Gateway에서 500 에러가 발생하는 경우
 1. Lambda 함수의 권한 설정 확인
 2. Lambda 함수의 로그 확인 (CloudWatch)
-3. API Gateway의 통합 설정 확인 
+3. API Gateway의 통합 설정 확인
+
+### 특정 람다 함수만 업데이트하고 싶은 경우
+1. 해당 람다 함수의 소스 코드만 수정
+2. 해당 람다 함수만 빌드 (예: `.\build_lambda_ec2.ps1`)
+3. `terraform apply` 실행하여 해당 람다 함수만 업데이트 
