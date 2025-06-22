@@ -3,27 +3,11 @@ import json
 
 from decrypt_with_kms import decrypt_credentials
 
-def get_subnet_list(event, context):
-    """
-    boto3를 사용해서 AWS 서브넷 목록을 추출하는 함수
-    
-    Args:
-        event (dict): 이벤트 데이터
-            - region: AWS 리전
-            - kms_key_id: KMS 키 ID (자격 증명 복호화용)
-            - vpc_id: 특정 VPC ID (선택사항)
-            - filters: 추가 필터 (선택사항)
-        context: Lambda 컨텍스트
-    
-    Returns:
-        dict: 서브넷 목록 정보
-    """
-    
+def get_subnet_list(event, context):    
     try:
         # 이벤트에서 파라미터 추출
         region = event.get('region', 'ap-northeast-2')
         vpc_id = event.get('vpc_id')
-        filters = event.get('filters', [])
         
         # KMS를 통한 자격 증명 복호화 (필요한 경우)
         if 'kms_key_id' in event:
